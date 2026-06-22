@@ -1,0 +1,7 @@
+[
+  { "id": "1", "name": "General Chemistry", "nameAr": "الكيمياء العامة", "icon": "Flask", "count": 3 },
+  { "id": "2", "name": "Organic Chemistry", "nameAr": "الكيمياء العضوية", "icon": "Atom", "count": 1 },
+  { "id": "3", "name": "Physical Chemistry", "nameAr": "الكيمياء الفيزيائية", "icon": "Zap", "count": 2 },
+  { "id": "4", "name": "Analytical Chemistry", "nameAr": "الكيمياء التحليلية", "icon": "Microscope", "count": 1 },
+  { "id": "5", "name": "Biochemistry", "nameAr": "الكيمياء الحيوية", "icon": "Dna", "count": 1 }
+]

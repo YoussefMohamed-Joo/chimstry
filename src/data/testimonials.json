@@ -1,0 +1,42 @@
+[
+  {
+    "id": "t1",
+    "name": "Sarah Al-Mutairi",
+    "nameAr": "سارة المطيري",
+    "avatar": "/users/sarah.jpg",
+    "text": "This platform transformed my understanding of chemistry. The interactive lessons and clear explanations made complex topics easy to grasp.",
+    "textAr": "هذه المنصة غيرت فهمي للكيمياء. الدروس التفاعلية والشروحات الواضحة جعلت الموضوعات المعقدة سهلة الفهم.",
+    "rating": 5,
+    "course": "Introduction to Chemistry"
+  },
+  {
+    "id": "t2",
+    "name": "Fahad Al-Otaibi",
+    "nameAr": "فهد العتيبي",
+    "avatar": "/users/fahad.jpg",
+    "text": "As a medical student, the biochemistry course was exactly what I needed. The molecular visualizations are stunning.",
+    "textAr": "كطالب طب، كانت دورة الكيمياء الحيوية بالضبط ما احتجته. التصورات الجزيئية مذهلة.",
+    "rating": 5,
+    "course": "Biochemistry"
+  },
+  {
+    "id": "t3",
+    "name": "Nora Al-Qahtani",
+    "nameAr": "نورة القحطاني",
+    "avatar": "/users/nora.jpg",
+    "text": "The lab safety course is a must for anyone working in a chemistry lab. Very practical and well-structured.",
+    "textAr": "دورة السلامة في المختبر ضرورية لأي شخص يعمل في مختبر كيمياء. عملية جدا ومنظمة بشكل جيد.",
+    "rating": 4,
+    "course": "Chemical Laboratory Safety"
+  },
+  {
+    "id": "t4",
+    "name": "Sultan Al-Harbi",
+    "nameAr": "سلطان الحربي",
+    "avatar": "/users/sultan.jpg",
+    "text": "I aced my organic chemistry exam thanks to this platform. The functional groups module was incredibly helpful.",
+    "textAr": "تفوقت في امتحان الكيمياء العضوية بفضل هذه المنصة. كانت وحدة المجموعات الوظيفية مفيدة بشكل لا يصدق.",
+    "rating": 5,
+    "course": "Organic Chemistry Fundamentals"
+  }
+]

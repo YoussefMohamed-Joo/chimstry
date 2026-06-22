@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --color-dark: #0B1E3D;
+  --color-cyan: #00C2CB;
+  --color-neon: #00F0FF;
+  --color-dark-bg: #060D1A;
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+@theme inline {
+  --font-cairo: var(--font-cairo);
+  --color-dark: #0B1E3D;
+  --color-cyan: #00C2CB;
+  --color-neon: #00F0FF;
+  --color-dark-bg: #060D1A;
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #060D1A;
+  color: #f3f4f6;
+}
+
+::selection {
+  background-color: rgba(0, 194, 203, 0.3);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.glass {
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow {
+  text-shadow: 0 0 20px rgba(0, 194, 203, 0.5), 0 0 40px rgba(0, 194, 203, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #22d3ee, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

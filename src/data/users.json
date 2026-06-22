@@ -1,0 +1,32 @@
+[
+  {
+    "id": "user-1",
+    "name": "Yousef Ahmed",
+    "email": "yousef@example.com",
+    "avatar": "/users/yousef.jpg",
+    "enrolledCourses": ["chem-101", "chem-201"],
+    "progress": { "chem-101": 45, "chem-201": 12 },
+    "role": "student",
+    "createdAt": "2025-09-15T10:30:00Z"
+  },
+  {
+    "id": "user-2",
+    "name": "Mona Al-Saud",
+    "email": "mona@example.com",
+    "avatar": "/users/mona.jpg",
+    "enrolledCourses": ["chem-151", "chem-251", "chem-301"],
+    "progress": { "chem-151": 78, "chem-251": 34, "chem-301": 5 },
+    "role": "student",
+    "createdAt": "2025-10-01T14:20:00Z"
+  },
+  {
+    "id": "user-3",
+    "name": "Omar Khaled",
+    "email": "omar@example.com",
+    "avatar": "/users/omar.jpg",
+    "enrolledCourses": ["chem-111"],
+    "progress": { "chem-111": 92 },
+    "role": "student",
+    "createdAt": "2026-01-10T09:00:00Z"
+  }
+]
