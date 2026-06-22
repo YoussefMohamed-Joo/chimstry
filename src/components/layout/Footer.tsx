@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Atom, Mail, Phone, MapPin } from 'lucide-react';
-import { FaFacebook, FaTwitter, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 
 const quickLinks = [
   { href: '/about', label: 'عن كيمستري' },
@@ -18,16 +18,16 @@ const categories = [
 ];
 
 const contactItems = [
-  { icon: Mail, text: 'info@chimstry.com', href: 'mailto:info@chimstry.com' },
-  { icon: Phone, text: '+966 55 123 4567', href: 'tel:+966551234567' },
-  { icon: MapPin, text: 'الرياض، المملكة العربية السعودية' },
+  { icon: Mail, text: 'youssef@chimstry.com', href: 'mailto:youssef@chimstry.com' },
+  { icon: Phone, text: '01033558125', href: 'https://wa.me/201033558125' },
+  { icon: MapPin, text: 'بني سويف، مصر' },
 ];
 
 const socialLinks = [
   { icon: FaFacebook, href: '#', hoverColor: 'hover:text-blue-500' },
   { icon: FaTwitter, href: '#', hoverColor: 'hover:text-sky-400' },
   { icon: FaYoutube, href: '#', hoverColor: 'hover:text-red-500' },
-  { icon: FaTelegram, href: '#', hoverColor: 'hover:text-sky-500' },
+  { icon: FaWhatsapp, href: 'https://wa.me/201033558125', hoverColor: 'hover:text-green-500' },
 ];
 
 export default function Footer() {
@@ -117,9 +117,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/5">
-          <p className="text-center text-gray-500 text-sm">
+        <div className="mt-12 pt-8 border-t border-white/5 text-center">
+          <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} كيمستري. جميع الحقوق محفوظة.
+          </p>
+          <p className="text-gray-600 text-xs mt-2">
+            صمم وطور بواسطة <span className="text-cyan-400">المهندس يوسف محمد حسين</span>
           </p>
         </div>
       </div>

@@ -5,6 +5,7 @@ import AppProvider from '@/providers/AppProvider';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ParticlesBackground from '@/components/shared/Particles';
+import WhatsAppButton from '@/components/shared/WhatsAppButton';
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     title: 'كيمستري - منصة تعلم الكيمياء',
     description: 'منصة تعليمية متخصصة في علوم الكيمياء، نقدم محتوى تفاعلي وشامل لطلاب الكيمياء.',
     type: 'website',
-    locale: 'ar_SA',
+    locale: 'ar_EG',
   },
 };
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ParticlesBackground />
           <Navbar />
           <main className="flex-1 relative z-10 pt-16">{children}</main>
+          <WhatsAppButton />
           <Footer />
         </AppProvider>
       </body>

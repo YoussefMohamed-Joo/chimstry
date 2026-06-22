@@ -13,7 +13,7 @@ export function formatDuration(seconds: number): string {
 }
 
 export function formatPrice(price: number): string {
-  return `${price.toLocaleString('ar-SA')} SAR`;
+  return `${price.toLocaleString('ar-EG')} ج.م`;
 }
 
 export function getProgressColor(percentage: number): string {
