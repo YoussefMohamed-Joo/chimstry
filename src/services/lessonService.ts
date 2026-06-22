@@ -1,30 +1,21 @@
-import api from './api';
 import type { Lesson, UserProgress } from '@/types';
+import lessonsData from '@/data/lessons.json';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-let lessonsData: Lesson[] = [];
-
-export const loadLessonsData = async (): Promise<Lesson[]> => {
-  if (lessonsData.length > 0) return lessonsData;
-  const data = await import('@/data/lessons.json');
-  lessonsData = data.default as unknown as Lesson[];
-  return lessonsData;
-};
+const data = lessonsData as unknown as Lesson[];
 
 export const lessonService = {
   async getByCourseId(courseId: string): Promise<Lesson[]> {
     await delay(300);
-    const lessons = await loadLessonsData();
-    return lessons
+    return data
       .filter((l) => l.courseId === courseId)
       .sort((a, b) => a.order - b.order);
   },
 
   async getById(id: string): Promise<Lesson | null> {
     await delay(200);
-    const lessons = await loadLessonsData();
-    return lessons.find((l) => l.id === id) || null;
+    return data.find((l) => l.id === id) || null;
   },
 
   async getProgress(userId: string, courseId: string): Promise<UserProgress[]> {

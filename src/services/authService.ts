@@ -1,21 +1,13 @@
 import type { User, LoginInput, RegisterInput } from '@/types';
-import api from './api';
+import usersData from '@/data/users.json';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-let usersData: User[] = [];
-
-const loadUsers = async (): Promise<User[]> => {
-  if (usersData.length > 0) return usersData;
-  const data = await import('@/data/users.json');
-  usersData = data.default as unknown as User[];
-  return usersData;
-};
+const users = usersData as unknown as User[];
 
 export const authService = {
   async login(input: LoginInput): Promise<{ user: User; token: string }> {
     await delay(800);
-    const users = await loadUsers();
     const user = users.find((u) => u.email === input.email);
     if (!user) throw new Error('Invalid email or password');
     const token = `mock_token_${user.id}_${Date.now()}`;
@@ -26,7 +18,6 @@ export const authService = {
 
   async register(input: RegisterInput): Promise<{ user: User; token: string }> {
     await delay(800);
-    const users = await loadUsers();
     if (users.some((u) => u.email === input.email)) {
       throw new Error('Email already registered');
     }
@@ -40,7 +31,6 @@ export const authService = {
       role: 'student',
       createdAt: new Date().toISOString(),
     };
-    usersData.push(newUser);
     const token = `mock_token_${newUser.id}_${Date.now()}`;
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(newUser));
