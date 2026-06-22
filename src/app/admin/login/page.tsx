@@ -6,21 +6,19 @@ import { Atom, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLogin } from '@/hooks/useUser';
-import { useAuthStore } from '@/store/authStore';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const loginMutation = useLogin();
-  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     try {
-      await loginMutation.mutateAsync({ email, password });
-      if (isAdmin) {
+      const result = await loginMutation.mutateAsync({ email, password });
+      if (result.role === 'admin') {
         window.location.href = '/admin/dashboard';
       } else {
         setError('ليس لديك صلاحية الوصول إلى لوحة الإدارة');
