@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -27,21 +27,29 @@ const recentActivity = [
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, isAdmin } = useAuthStore();
   const { data: allCourses, isLoading: coursesLoading } = useCourses();
 
+  useEffect(() => {
+    if (isAdmin) {
+      window.location.href = '/admin/dashboard';
+    }
+  }, [isAdmin]);
+
+  const userData = user && 'enrolledCourses' in user ? user : null;
+
   const enrolledCourses = useMemo(() => {
-    if (!allCourses || !user) return [];
-    return allCourses.filter((c) => user.enrolledCourses.includes(c.id));
-  }, [allCourses, user]);
+    if (!allCourses || !userData) return [];
+    return allCourses.filter((c) => userData.enrolledCourses.includes(c.id));
+  }, [allCourses, userData]);
 
   const continueWatching = useMemo(() => {
-    if (!enrolledCourses.length || !user) return [];
+    if (!enrolledCourses.length || !userData) return [];
     return enrolledCourses
-      .map((c) => ({ ...c, progress: user.progress[c.id] || 0 }))
+      .map((c) => ({ ...c, progress: userData.progress[c.id] || 0 }))
       .sort((a, b) => b.progress - a.progress)
       .slice(0, 4);
-  }, [enrolledCourses, user]);
+  }, [enrolledCourses, userData]);
 
   const statsCards = [
     { icon: BookOpen, value: enrolledCourses.length.toString(), label: 'دورات مسجل فيها' },
@@ -183,7 +191,7 @@ export default function DashboardPage() {
                         key={course.id}
                         course={course}
                         isEnrolled
-                        progress={user.progress[course.id] || 0}
+                        progress={userData?.progress[course.id] || 0}
                       />
                     ))}
                   </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type InputHTMLAttributes, forwardRef } from 'react';
+import { useState, useEffect, type InputHTMLAttributes, forwardRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/cn';
 import { useLogin, useRegister } from '@/hooks/useUser';
+import { useAuthStore } from '@/store/authStore';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'البريد الإلكتروني مطلوب').email('البريد الإلكتروني غير صالح'),
@@ -84,6 +85,7 @@ PasswordInput.displayName = 'PasswordInput';
 
 function LoginForm() {
   const login = useLogin();
+  const { isAdmin } = useAuthStore();
   const {
     register,
     handleSubmit,
@@ -91,6 +93,14 @@ function LoginForm() {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
+
+  useEffect(() => {
+    if (login.isSuccess) {
+      setTimeout(() => {
+        window.location.href = isAdmin ? '/admin/dashboard' : '/';
+      }, 300);
+    }
+  }, [login.isSuccess, isAdmin]);
 
   const onSubmit = (data: LoginFormData) => {
     login.mutate(data);
@@ -137,7 +147,7 @@ function LoginForm() {
       </Button>
       <p className="text-center text-sm text-gray-400">
         ليس لديك حساب؟{' '}
-        <Link href="/register" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+        <Link href="/auth/register" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
           إنشاء حساب جديد
         </Link>
       </p>
@@ -218,7 +228,7 @@ function RegisterForm() {
       </Button>
       <p className="text-center text-sm text-gray-400">
         لديك حساب بالفعل؟{' '}
-        <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+        <Link href="/auth/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
           تسجيل الدخول
         </Link>
       </p>

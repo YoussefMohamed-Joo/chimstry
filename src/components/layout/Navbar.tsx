@@ -9,18 +9,19 @@ import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
 import { cn } from '@/lib/cn';
 
-const navLinks = [
-  { href: '/', label: 'الرئيسية' },
-  { href: '/courses', label: 'الدورات' },
-  { href: '/dashboard', label: 'لوحة التحكم' },
-  { href: '/profile', label: 'الملف الشخصي' },
-];
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, isAdmin, logout } = useAuthStore();
+
+  const navLinks = [
+    { href: '/', label: 'الرئيسية' },
+    { href: '/courses', label: 'الدورات' },
+    { href: '/dashboard', label: 'لوحة التحكم' },
+    ...(isAdmin ? [{ href: '/admin/dashboard', label: 'الإدارة' }] : []),
+    { href: '/profile', label: 'الملف الشخصي' },
+  ];
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

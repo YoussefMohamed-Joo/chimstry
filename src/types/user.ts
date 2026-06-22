@@ -2,16 +2,29 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  password: string;
   avatar: string;
   enrolledCourses: string[];
   progress: Record<string, number>;
   role: 'student' | 'teacher' | 'admin';
   createdAt: string;
+  isActive: boolean;
+}
+
+export interface Admin {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'superadmin';
+  avatar: string;
+  createdAt: string;
 }
 
 export interface AuthResponse {
-  user: User;
+  user: User | Admin;
   token: string;
+  role: 'user' | 'admin';
 }
 
 export interface LoginInput {
@@ -25,3 +38,4 @@ export interface RegisterInput {
   password: string;
   confirmPassword: string;
 }
+

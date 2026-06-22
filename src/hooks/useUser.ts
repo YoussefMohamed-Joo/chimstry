@@ -12,10 +12,10 @@ export function useCurrentUser() {
   return useQuery({
     queryKey: ['currentUser'],
     queryFn: async () => {
-      const user = await authService.getCurrentUser();
-      setUser(user);
+      const result = await authService.getCurrentUser();
+      setUser(result?.user ?? null, result?.role);
       setLoading(false);
-      return user;
+      return result;
     },
     retry: false,
   });
@@ -28,7 +28,7 @@ export function useLogin() {
   return useMutation({
     mutationFn: (input: LoginInput) => authService.login(input),
     onSuccess: (data) => {
-      setUser(data.user);
+      setUser(data.user, data.role);
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
     },
   });
@@ -41,7 +41,7 @@ export function useRegister() {
   return useMutation({
     mutationFn: (input: RegisterInput) => authService.register(input),
     onSuccess: (data) => {
-      setUser(data.user);
+      setUser(data.user, data.role);
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
     },
   });
@@ -53,12 +53,29 @@ export function useEnrollCourse() {
 
   return useMutation({
     mutationFn: (courseId: string) => {
-      if (!user) throw new Error('Not authenticated');
+      if (!user) throw new Error('غير مسجل دخول');
       return authService.enrollCourse(user.id, courseId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      queryClient.invalidateQueries({ queryKey: ['courses'] });
+    },
+  });
+}
+
+export function useAllUsers() {
+  return useQuery({
+    queryKey: ['allUsers'],
+    queryFn: () => authService.getAllUsers(),
+  });
+}
+
+export function useToggleUserStatus() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (userId: string) => authService.toggleUserStatus(userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['allUsers'] });
     },
   });
 }

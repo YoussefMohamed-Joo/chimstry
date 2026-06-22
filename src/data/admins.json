@@ -1,0 +1,20 @@
+[
+  {
+    "id": "admin-1",
+    "name": "المهندس يوسف محمد حسين",
+    "email": "admin@chimstry.com",
+    "password": "admin123",
+    "role": "superadmin",
+    "avatar": "/admins/youssef.jpg",
+    "createdAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "admin-2",
+    "name": "إدارة المنصة",
+    "email": "admin2@chimstry.com",
+    "password": "admin123",
+    "role": "admin",
+    "avatar": "/admins/admin2.jpg",
+    "createdAt": "2025-06-01T00:00:00Z"
+  }
+]

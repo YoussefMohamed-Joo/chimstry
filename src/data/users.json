@@ -3,30 +3,72 @@
     "id": "user-1",
     "name": "Yousef Ahmed",
     "email": "yousef@example.com",
+    "password": "123456",
     "avatar": "/users/yousef.jpg",
     "enrolledCourses": ["chem-101", "chem-201"],
     "progress": { "chem-101": 45, "chem-201": 12 },
     "role": "student",
+    "isActive": true,
     "createdAt": "2025-09-15T10:30:00Z"
   },
   {
     "id": "user-2",
     "name": "Mona Al-Saud",
     "email": "mona@example.com",
+    "password": "123456",
     "avatar": "/users/mona.jpg",
     "enrolledCourses": ["chem-151", "chem-251", "chem-301"],
     "progress": { "chem-151": 78, "chem-251": 34, "chem-301": 5 },
     "role": "student",
+    "isActive": true,
     "createdAt": "2025-10-01T14:20:00Z"
   },
   {
     "id": "user-3",
     "name": "Omar Khaled",
     "email": "omar@example.com",
+    "password": "123456",
     "avatar": "/users/omar.jpg",
     "enrolledCourses": ["chem-111"],
     "progress": { "chem-111": 92 },
     "role": "student",
+    "isActive": true,
     "createdAt": "2026-01-10T09:00:00Z"
+  },
+  {
+    "id": "user-4",
+    "name": "Nora Ali",
+    "email": "nora@example.com",
+    "password": "123456",
+    "avatar": "/users/nora.jpg",
+    "enrolledCourses": ["chem-101", "chem-251"],
+    "progress": { "chem-101": 72, "chem-251": 15 },
+    "role": "student",
+    "isActive": true,
+    "createdAt": "2025-11-20T16:45:00Z"
+  },
+  {
+    "id": "user-5",
+    "name": "Khaled Hassan",
+    "email": "khaled@example.com",
+    "password": "123456",
+    "avatar": "/users/khaled.jpg",
+    "enrolledCourses": ["chem-301", "chem-401"],
+    "progress": { "chem-301": 30, "chem-401": 0 },
+    "role": "student",
+    "isActive": false,
+    "createdAt": "2026-02-05T08:15:00Z"
+  },
+  {
+    "id": "user-6",
+    "name": "Lina Mohammed",
+    "email": "lina@example.com",
+    "password": "123456",
+    "avatar": "/users/lina.jpg",
+    "enrolledCourses": [],
+    "progress": {},
+    "role": "student",
+    "isActive": true,
+    "createdAt": "2026-03-12T11:00:00Z"
   }
 ]

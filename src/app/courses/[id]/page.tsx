@@ -50,7 +50,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
     return lessons.find((l) => l.id === lessonId) || lessons[0] || null;
   }, [lessons, selectedLessonId]);
 
-  const isEnrolled = user?.enrolledCourses?.includes(id ?? '') ?? false;
+  const isEnrolled = user && 'enrolledCourses' in user ? user.enrolledCourses.includes(id ?? '') : false;
 
   if (isLoading) {
     return (
