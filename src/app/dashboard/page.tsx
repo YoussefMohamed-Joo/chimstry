@@ -58,7 +58,7 @@ export default function DashboardPage() {
           title="يرجى تسجيل الدخول"
           description="سجل دخولك للوصول إلى لوحة التحكم"
           actionLabel="تسجيل الدخول"
-          onAction={() => window.location.href = '/login'}
+          onAction={() => window.location.href = '/auth/login'}
         />
       </div>
     );

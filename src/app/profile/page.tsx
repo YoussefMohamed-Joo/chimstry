@@ -43,7 +43,7 @@ export default function ProfilePage() {
           title="يرجى تسجيل الدخول"
           description="سجل دخولك للوصول إلى الملف الشخصي"
           actionLabel="تسجيل الدخول"
-          onAction={() => window.location.href = '/login'}
+          onAction={() => window.location.href = '/auth/login'}
         />
       </div>
     );

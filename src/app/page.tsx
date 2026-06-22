@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import { motion, type Easing } from 'framer-motion';
-import { ArrowLeft, Star, Users, BookOpen, GraduationCap, Atom, FlaskRound as Flask, Microscope, Zap, Dna, ChevronLeft, Mail } from 'lucide-react';
+import { ArrowLeft, Star, Users, BookOpen, GraduationCap, Atom, FlaskRound as Flask, Microscope, Zap, Dna } from 'lucide-react';
 import HeroSection from '@/components/features/HeroSection';
 import CourseCard from '@/components/features/CourseCard';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useFeaturedCourses } from '@/hooks/useCourses';
 import { CourseCardSkeleton } from '@/components/ui/skeleton';
@@ -232,39 +231,6 @@ export default function HomePage() {
             </motion.div>
           ))}
         </div>
-      </section>
-
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-3xl overflow-hidden p-8 md:p-16 bg-gradient-to-br from-cyan-500/10 via-blue-600/10 to-[#0B1E3D] border border-white/10 text-center"
-        >
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              ابدأ رحلة التعلم <span className="gradient-text">اليوم</span>
-            </h2>
-            <p className="text-gray-300 mb-8">
-              اشترك في النشرة البريدية واحصل على أحدث الدورات والعروض الحصرية
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <div className="relative flex-1">
-                <Mail className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="أدخل بريدك الإلكتروني"
-                  className="pr-10 h-12 bg-white/5 border-white/10 rounded-xl"
-                />
-              </div>
-              <Button variant="primary" size="lg" className="shrink-0">
-                اشتراك
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </motion.div>
       </section>
     </div>
   );
