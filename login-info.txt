@@ -1,0 +1,25 @@
+🔬 Chimstry - Chemistry E-Learning Platform
+============================================
+
+🌐 Website: https://chimstry.vercel.app
+
+--------------------------------------------------
+👤 USER LOGIN (طلاب)
+--------------------------------------------------
+Email:    yousef@example.com
+Password: 123456
+
+Email:    mona@example.com
+Password: 123456
+
+--------------------------------------------------
+🛡️ ADMIN LOGIN (الإدارة)
+--------------------------------------------------
+Link:     https://chimstry.vercel.app/admin/login
+Email:    admin@chimstry.com
+Password: admin123
+
+--------------------------------------------------
+👨‍💻 Developer: المهندس يوسف محمد حسين
+📞 WhatsApp:  https://wa.me/201033558125
+📍 Location:  بني سويف، مصر
