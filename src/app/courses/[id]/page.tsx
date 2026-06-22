@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -21,12 +21,16 @@ import { useAuthStore } from '@/store/authStore';
 import { useEnrollCourse } from '@/hooks/useUser';
 
 export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
-  const { data: course, isLoading, isError, refetch } = useCourse(id);
-  const { data: lessons, isLoading: lessonsLoading } = useLessons(id);
+  const [id, setId] = useState<string | null>(null);
+
+  useEffect(() => {
+    params.then((p) => setId(p.id));
+  }, [params]);
+  const { data: course, isLoading, isError, refetch } = useCourse(id ?? '');
+  const { data: lessons, isLoading: lessonsLoading } = useLessons(id ?? '');
   const { user, isAuthenticated } = useAuthStore();
   const enroll = useEnrollCourse();
-  const { data: progressData } = useLessonProgress(user?.id ?? '', id);
+  const { data: progressData } = useLessonProgress(user?.id ?? '', id ?? '');
 
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
 
@@ -46,7 +50,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
     return lessons.find((l) => l.id === lessonId) || lessons[0] || null;
   }, [lessons, selectedLessonId]);
 
-  const isEnrolled = user?.enrolledCourses?.includes(id) ?? false;
+  const isEnrolled = user?.enrolledCourses?.includes(id ?? '') ?? false;
 
   if (isLoading) {
     return (
@@ -77,7 +81,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
   }
 
   const handleEnroll = () => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !id) return;
     enroll.mutate(id);
   };
 
@@ -183,7 +187,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           {selectedLesson && (
             <LessonPlayer
               lesson={selectedLesson}
-              courseId={id}
+              courseId={id ?? ''}
               userId={user?.id ?? ''}
               isEnrolled={isEnrolled}
             />
