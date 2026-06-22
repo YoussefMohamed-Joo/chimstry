@@ -1,64 +1,21 @@
 'use client';
 
-import { useCallback } from 'react';
-import { ParticlesProvider, Particles } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
-import type { Engine } from '@tsparticles/engine';
+import { useCallback, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const ParticlesComponent = dynamic(
+  () => import('./ParticlesInner'),
+  { ssr: false, loading: () => null }
+);
 
 export default function ParticlesBackground() {
-  const init = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
-  return (
-    <ParticlesProvider init={init}>
-      <Particles
-        id="tsparticles"
-        options={{
-          fullScreen: { enable: true, zIndex: 0 },
-          fpsLimit: 60,
-          particles: {
-            number: { value: 80, density: { enable: true } },
-            color: { value: ['#00C2CB', '#0B1E3D', '#60EFFF', '#ffffff'] },
-            shape: { type: ['circle', 'star'] },
-            opacity: {
-              value: { min: 0.1, max: 0.5 },
-              animation: { enable: true, speed: 0.5, sync: false },
-            },
-            size: {
-              value: { min: 1, max: 4 },
-              animation: { enable: true, speed: 1, sync: false },
-            },
-            links: {
-              enable: true,
-              distance: 150,
-              color: '#00C2CB',
-              opacity: 0.15,
-              width: 1,
-            },
-            move: {
-              enable: true,
-              speed: { min: 0.5, max: 1.5 },
-              direction: 'none',
-              random: true,
-              straight: false,
-              outModes: { default: 'bounce' },
-            },
-          },
-          interactivity: {
-            events: {
-              onHover: { enable: true, mode: 'grab' },
-              onClick: { enable: true, mode: 'push' },
-            },
-            modes: {
-              grab: { distance: 200, links: { opacity: 0.3 } },
-              push: { quantity: 4 },
-            },
-          },
-          background: { color: 'transparent' },
-          detectRetina: true,
-        }}
-      />
-    </ParticlesProvider>
-  );
+  if (!mounted) return null;
+
+  return <ParticlesComponent />;
 }
