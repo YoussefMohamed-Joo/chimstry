@@ -70,28 +70,6 @@ export default function HeroSection() {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Left side: 3D Lab Scene */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className="relative flex items-center justify-center"
-          >
-            <div className="w-full max-w-[500px] aspect-[4/3]">
-              <LabScene onStateChange={setLabState} />
-            </div>
-            <motion.div
-              key={labState}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/5"
-            >
-              <span className="text-xs text-cyan-400/80 font-medium">
-                {stateLabels[labState] || ''}
-              </span>
-            </motion.div>
-          </motion.div>
-
           {/* Right side: text */}
           <div className="text-center lg:text-right">
             <motion.div
@@ -187,6 +165,28 @@ export default function HeroSection() {
               ))}
             </motion.div>
           </div>
+
+          {/* Left side: 3D Lab Scene */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+            className="relative flex items-center justify-center"
+          >
+            <div className="w-full max-w-[500px] aspect-[4/3]">
+              <LabScene onStateChange={setLabState} />
+            </div>
+            <motion.div
+              key={labState}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/5"
+            >
+              <span className="text-xs text-cyan-400/80 font-medium">
+                {stateLabels[labState] || ''}
+              </span>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
