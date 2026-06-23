@@ -44,7 +44,7 @@ export default function ChemistryBackground() {
           size: 18 + Math.random() * 45,
           rotation: Math.random() * Math.PI * 2, rotSpeed: (Math.random() - 0.5) * 0.008,
           type: types[Math.floor(Math.random() * types.length)],
-          alpha: 0.05 + Math.random() * 0.07, born: performance.now(),
+          alpha: 0.025 + Math.random() * 0.045, born: performance.now(),
         });
       }
       molsRef.current = arr;
@@ -94,7 +94,7 @@ export default function ChemistryBackground() {
     // ─── Draw helpers ───
     function drawHex(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1.2;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1.2;
 
       // Outer hexagon
       ctx.beginPath();
@@ -107,11 +107,11 @@ export default function ChemistryBackground() {
 
       // Inner circle (aromatic)
       ctx.beginPath(); ctx.arc(0, 0, s * 0.55, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(0, 194, 203, ${alpha * 0.5})`;
+      ctx.strokeStyle = `rgba(30, 64, 175, ${alpha * 0.5})`;
       ctx.stroke();
 
       // Nodes
-      ctx.fillStyle = '#00C2CB';
+      ctx.fillStyle = '#1e40af';
       for (let i = 0; i < 6; i++) {
         const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
         ctx.beginPath();
@@ -123,7 +123,7 @@ export default function ChemistryBackground() {
 
     function drawFused(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1;
 
       // Naphthalene-like (two fused hexagons)
       for (let ring = 0; ring < 2; ring++) {
@@ -143,18 +143,18 @@ export default function ChemistryBackground() {
       const a2 = -Math.PI / 2 + Math.PI / 6;
       ctx.moveTo(Math.cos(a1) * s + s * 0.75, Math.sin(a1) * s);
       ctx.lineTo(Math.cos(a2) * s + s * 0.75, Math.sin(a2) * s);
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 2.5; ctx.stroke();
 
       // Inner rings
       for (let ring = 0; ring < 2; ring++) {
         ctx.beginPath();
         ctx.arc(ring === 0 ? 0 : s * 1.5, 0, s * 0.5, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0, 194, 203, ${alpha * 0.4})`;
+        ctx.strokeStyle = `rgba(30, 64, 175, ${alpha * 0.4})`;
         ctx.lineWidth = 0.8; ctx.stroke();
       }
 
       // Nodes
-      ctx.fillStyle = '#00C2CB';
+      ctx.fillStyle = '#1e40af';
       for (let ring = 0; ring < 2; ring++) {
         for (let i = 0; i < 6; i++) {
           const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
@@ -170,7 +170,7 @@ export default function ChemistryBackground() {
 
     function drawChain(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1.2;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1.2;
 
       const links = 4 + Math.floor(Math.random() * 3);
       const spacing = s * 0.7;
@@ -182,15 +182,15 @@ export default function ChemistryBackground() {
         const ly = i % 2 === 0 ? -s * 0.25 : s * 0.25;
         ctx.beginPath();
         ctx.arc(lx, ly, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#00C2CB'; ctx.fill();
-        ctx.strokeStyle = '#00C2CB'; ctx.stroke();
+        ctx.fillStyle = '#1e40af'; ctx.fill();
+        ctx.strokeStyle = '#1e40af'; ctx.stroke();
 
         if (i < links - 1) {
           const nx = -totalW / 2 + (i + 1) * spacing;
           const ny = (i + 1) % 2 === 0 ? -s * 0.25 : s * 0.25;
           ctx.beginPath();
           ctx.moveTo(lx, ly); ctx.lineTo(nx, ny);
-          ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1.2; ctx.stroke();
+          ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1.2; ctx.stroke();
         }
       }
       ctx.restore();
@@ -198,12 +198,12 @@ export default function ChemistryBackground() {
 
     function drawDouble(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1;
 
       // Double bond between two atoms
       ctx.beginPath();
       ctx.arc(-s * 0.5, 0, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#00C2CB'; ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#1e40af'; ctx.fill(); ctx.stroke();
       ctx.beginPath();
       ctx.arc(s * 0.5, 0, 4, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
@@ -221,12 +221,12 @@ export default function ChemistryBackground() {
 
     function drawRing(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 1.2;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 1.2;
       ctx.beginPath(); ctx.arc(0, 0, s, 0, Math.PI * 2); ctx.stroke();
       ctx.beginPath(); ctx.arc(0, 0, s * 0.6, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(0, 194, 203, ${alpha * 0.5})`; ctx.stroke();
+      ctx.strokeStyle = `rgba(30, 64, 175, ${alpha * 0.5})`; ctx.stroke();
 
-      ctx.fillStyle = '#00C2CB';
+      ctx.fillStyle = '#1e40af';
       for (let i = 0; i < 6; i++) {
         const a = (i / 6) * Math.PI * 2;
         ctx.beginPath();
@@ -238,7 +238,7 @@ export default function ChemistryBackground() {
 
     function drawAtom(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, rot: number, alpha: number, t: number) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = alpha;
-      ctx.strokeStyle = 'rgba(0, 194, 203, 0.3)'; ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(30, 64, 175, 0.3)'; ctx.lineWidth = 0.5;
 
       for (let i = 0; i < 3; i++) {
         ctx.beginPath();
@@ -247,9 +247,9 @@ export default function ChemistryBackground() {
       }
 
       ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2);
-      ctx.fillStyle = '#00C2CB'; ctx.fill();
+      ctx.fillStyle = '#1e40af'; ctx.fill();
       ctx.beginPath(); ctx.arc(0, 0, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#60EFFF'; ctx.fill();
+      ctx.fillStyle = '#93c5fd'; ctx.fill();
 
       for (let i = 0; i < 3; i++) {
         const a = (i / 3) * Math.PI * 2 + t * 0.5;
@@ -258,7 +258,7 @@ export default function ChemistryBackground() {
         const ry = ex * Math.sin((i / 3) * Math.PI) + ey * Math.cos((i / 3) * Math.PI);
         ctx.beginPath();
         ctx.arc(rx, ry, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#60EFFF'; ctx.fill();
+        ctx.fillStyle = '#93c5fd'; ctx.fill();
       }
       ctx.restore();
     }
@@ -278,7 +278,7 @@ export default function ChemistryBackground() {
       // Grid
       ctx.save();
       ctx.globalAlpha = 0.015;
-      ctx.strokeStyle = '#00C2CB'; ctx.lineWidth = 0.5;
+      ctx.strokeStyle = '#1e40af'; ctx.lineWidth = 0.5;
       const gs = 100;
       for (let x = (t * 4) % gs; x < Ww; x += gs) {
         ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, Hh); ctx.stroke();
@@ -309,7 +309,7 @@ export default function ChemistryBackground() {
 
         // Glow
         ctx.save();
-        ctx.shadowColor = 'rgba(0, 194, 203, 0.15)';
+        ctx.shadowColor = 'rgba(30, 64, 175, 0.08)';
         ctx.shadowBlur = 15;
 
         switch (m.type) {
@@ -337,7 +337,7 @@ export default function ChemistryBackground() {
         ctx.save();
         ctx.globalAlpha = tx.alpha;
         ctx.font = `${tx.size}px "Cairo", sans-serif`;
-        ctx.fillStyle = '#00C2CB';
+        ctx.fillStyle = '#1e40af';
         ctx.textAlign = 'center';
         ctx.fillText(tx.text, tx.x, tx.y);
         ctx.restore();

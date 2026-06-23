@@ -1,24 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --color-dark: #0B1E3D;
-  --color-cyan: #00C2CB;
-  --color-neon: #00F0FF;
-  --color-dark-bg: #060D1A;
-  --color-card: rgba(255, 255, 255, 0.03);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-glass: rgba(255, 255, 255, 0.05);
+  --bg-main: #f8fafc;
+  --bg-section: #ffffff;
+  --primary: #1e40af;
+  --primary-hover: #1e3a8a;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent-green: #059669;
+  --border: #e5e7eb;
 }
 
 @theme inline {
   --font-cairo: var(--font-cairo);
-  --color-dark: #0B1E3D;
-  --color-cyan: #00C2CB;
-  --color-neon: #00F0FF;
-  --color-dark-bg: #060D1A;
-  --color-card: rgba(255, 255, 255, 0.03);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-bg-main: #f8fafc;
+  --color-bg-section: #ffffff;
+  --color-primary: #1e40af;
+  --color-primary-hover: #1e3a8a;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-accent: #059669;
+  --color-border: #e5e7eb;
 }
 
 html {
@@ -26,13 +30,13 @@ html {
 }
 
 body {
-  background-color: #060D1A;
-  color: #f3f4f6;
+  background-color: #f8fafc;
+  color: #1e293b;
 }
 
 ::selection {
-  background-color: rgba(0, 194, 203, 0.3);
-  color: #ffffff;
+  background-color: rgba(30, 64, 175, 0.15);
+  color: #1e293b;
 }
 
 ::-webkit-scrollbar {
@@ -45,27 +49,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: #cbd5e1;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.glass {
-  backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glow {
-  text-shadow: 0 0 20px rgba(0, 194, 203, 0.5), 0 0 40px rgba(0, 194, 203, 0.3);
-}
-
-.gradient-text {
-  background: linear-gradient(to right, #22d3ee, #60a5fa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: #94a3b8;
 }

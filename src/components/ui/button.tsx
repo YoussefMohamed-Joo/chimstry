@@ -4,19 +4,19 @@ import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/cn';
 
 const variants = {
-  default: 'bg-cyan-500 text-white hover:bg-cyan-400 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40',
-  primary: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/20',
-  secondary: 'bg-white/10 text-white border border-white/20 hover:bg-white/20 hover:border-white/30',
-  ghost: 'text-gray-300 hover:text-white hover:bg-white/5',
-  outline: 'border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10',
-  danger: 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30',
+  default: 'bg-[#1e40af] text-white hover:bg-[#1e3a8a]',
+  primary: 'bg-[#1e40af] text-white hover:bg-[#1e3a8a]',
+  secondary: 'bg-white text-[#1e293b] border border-[#e5e7eb] hover:bg-[#f8fafc]',
+  ghost: 'text-[#475569] hover:text-[#1e293b] hover:bg-[#f1f5f9]',
+  outline: 'border border-[#e5e7eb] text-[#475569] hover:bg-[#f8fafc]',
+  danger: 'text-red-600 hover:bg-red-50',
 } as const;
 
 const sizes = {
   sm: 'h-8 px-3 text-xs',
   md: 'h-10 px-5 text-sm',
-  lg: 'h-12 px-8 text-base',
-  xl: 'h-14 px-10 text-lg',
+  lg: 'h-12 px-7 text-base',
+  xl: 'h-14 px-9 text-lg',
 } as const;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,10 +31,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled || isLoading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900',
+        'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1e40af] focus-visible:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',
-        'active:scale-[0.97]',
         variants[variant],
         sizes[size],
         className

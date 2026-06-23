@@ -1,13 +1,11 @@
 import Link from 'next/link';
-import { Atom, Mail, Phone, MapPin } from 'lucide-react';
-import { FaFacebook, FaTwitter, FaYoutube, FaWhatsapp } from 'react-icons/fa';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const quickLinks = [
   { href: '/about', label: 'عن كيمستري' },
   { href: '/courses', label: 'جميع الدورات' },
-  { href: '/blog', label: 'المدونة' },
+  { href: '/lab', label: 'المعمل التفاعلي' },
   { href: '/faq', label: 'الأسئلة الشائعة' },
-  { href: '/contact', label: 'اتصل بنا' },
 ];
 
 const categories = [
@@ -23,51 +21,26 @@ const contactItems = [
   { icon: MapPin, text: 'بني سويف، مصر' },
 ];
 
-const socialLinks = [
-  { icon: FaFacebook, href: '#', hoverColor: 'hover:text-blue-500' },
-  { icon: FaTwitter, href: '#', hoverColor: 'hover:text-sky-400' },
-  { icon: FaYoutube, href: '#', hoverColor: 'hover:text-red-500' },
-  { icon: FaWhatsapp, href: 'https://wa.me/201033558125', hoverColor: 'hover:text-green-500' },
-];
-
 export default function Footer() {
   return (
-    <footer dir="rtl" className="relative bg-[#0B1E3D]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+    <footer dir="rtl" className="bg-white border-t border-[#e5e7eb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-9 h-9 flex items-center justify-center">
-                <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-sm" />
-                <Atom className="w-6 h-6 text-cyan-400 relative z-10" />
-              </div>
-              <span className="text-xl font-bold text-white">كيمستري</span>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <span className="text-xl font-bold text-[#1e40af]">كيمستري</span>
+            <p className="text-[#475569] text-sm leading-relaxed">
               منصة تعليمية متخصصة في علوم الكيمياء، نقدم محتوى تفاعلي وشامل لطلاب الكيمياء في جميع المراحل التعليمية.
             </p>
-            <div className="flex items-center gap-3 pt-2">
-              {socialLinks.map(({ icon: Icon, href, hoverColor }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 text-gray-400 ${hoverColor} hover:bg-white/10 transition-all`}
-                >
-                  <Icon className="w-4 h-4" />
-                </Link>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-white font-bold text-lg">روابط سريعة</h3>
-            <ul className="space-y-3">
+            <h3 className="text-[#1e293b] font-bold text-base">روابط سريعة</h3>
+            <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-cyan-400 text-sm transition-all duration-200 hover:pr-1 block"
+                    className="text-[#475569] hover:text-[#1e40af] text-sm transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -77,13 +50,13 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-white font-bold text-lg">التصنيفات</h3>
-            <ul className="space-y-3">
+            <h3 className="text-[#1e293b] font-bold text-base">التصنيفات</h3>
+            <ul className="space-y-2.5">
               {categories.map((cat) => (
                 <li key={cat.href}>
                   <Link
                     href={cat.href}
-                    className="text-gray-400 hover:text-cyan-400 text-sm transition-all duration-200 hover:pr-1 block"
+                    className="text-[#475569] hover:text-[#1e40af] text-sm transition-colors duration-200"
                   >
                     {cat.label}
                   </Link>
@@ -93,21 +66,21 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-white font-bold text-lg">معلومات الاتصال</h3>
-            <ul className="space-y-4">
+            <h3 className="text-[#1e293b] font-bold text-base">معلومات الاتصال</h3>
+            <ul className="space-y-3">
               {contactItems.map((item) => (
                 <li key={item.text}>
                   {item.href ? (
                     <Link
                       href={item.href}
-                      className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 text-sm transition-all"
+                      className="flex items-center gap-2 text-[#475569] hover:text-[#1e40af] text-sm transition-colors"
                     >
-                      <item.icon className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <item.icon className="w-4 h-4 text-[#1e40af] shrink-0" />
                       {item.text}
                     </Link>
                   ) : (
-                    <span className="flex items-center gap-3 text-gray-400 text-sm">
-                      <item.icon className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span className="flex items-center gap-2 text-[#475569] text-sm">
+                      <item.icon className="w-4 h-4 text-[#1e40af] shrink-0" />
                       {item.text}
                     </span>
                   )}
@@ -117,12 +90,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/5 text-center">
-          <p className="text-gray-500 text-sm">
+        <div className="mt-12 pt-8 border-t border-[#e5e7eb] text-center">
+          <p className="text-[#94a3b8] text-sm">
             © {new Date().getFullYear()} كيمستري. جميع الحقوق محفوظة.
           </p>
-          <p className="text-gray-600 text-xs mt-2">
-            صمم وطور بواسطة <span className="text-cyan-400">المهندس يوسف محمد حسين</span>
+          <p className="text-[#94a3b8] text-xs mt-1">
+            صمم وطور بواسطة <span className="text-[#1e40af]">المهندس يوسف محمد حسين</span>
           </p>
         </div>
       </div>
