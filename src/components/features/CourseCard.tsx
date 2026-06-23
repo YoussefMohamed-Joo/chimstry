@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Star, Clock, Users, Play, ArrowLeft } from 'lucide-react';
+import { Star, Clock, Users, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { cn } from '@/lib/cn';
 import { formatPrice } from '@/lib/utils';
 import type { Course } from '@/types';
 
@@ -17,102 +15,93 @@ interface CourseCardProps {
   index?: number;
 }
 
-const levelVariant = {
-  beginner: 'green' as const,
-  intermediate: 'yellow' as const,
-  advanced: 'red' as const,
+const levelStyles: Record<string, { badge: 'green' | 'yellow' | 'red'; text: string }> = {
+  beginner: { badge: 'green', text: 'مبتدئ' },
+  intermediate: { badge: 'yellow', text: 'متوسط' },
+  advanced: { badge: 'red', text: 'متقدم' },
 };
 
 export default function CourseCard({ course, isEnrolled, progress, index = 0 }: CourseCardProps) {
+  const level = levelStyles[course.level] || { badge: 'blue' as const, text: course.levelAr };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
-    >
-      <Link href={`/courses/${course.id}`} className="block group">
-        <div
-          className={cn(
-            'relative rounded-xl overflow-hidden border border-white/5 bg-white/[0.02] backdrop-blur-xl',
-            'transition-all duration-500 ease-out',
-            'group-hover:-translate-y-2 group-hover:scale-[1.02]',
-            'group-hover:shadow-xl group-hover:shadow-cyan-500/20 group-hover:border-cyan-500/30'
-          )}
-        >
-          <div className="relative h-48 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 via-blue-600/20 to-[#0B1E3D] group-hover:scale-110 transition-transform duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/90 via-transparent to-transparent" />
-            <div className="absolute top-3 right-3 flex gap-2">
-              <Badge variant="cyan">{course.categoryAr}</Badge>
-              <Badge variant={levelVariant[course.level]}>{course.levelAr}</Badge>
-            </div>
-            {isEnrolled && progress !== undefined && (
-              <div className="absolute top-3 left-3">
-                <Badge variant="green" className="gap-1.5">
-                  <Play className="w-3 h-3" />
-                  {Math.round(progress)}%
-                </Badge>
-              </div>
-            )}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="w-14 h-14 rounded-full bg-cyan-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                <Play className="w-6 h-6 text-white mr-0.5" />
-              </div>
-            </div>
+    <Link href={`/courses/${course.id}`} className="block group">
+      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden transition-all duration-200 hover:border-[#cbd5e1] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+        <div className="relative h-56 bg-gradient-to-br from-[#eef2ff] to-[#f8fafc] overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.04]">
+            <svg viewBox="0 0 400 280" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M200 40 L200 70 L215 90 Q230 110 230 140 L230 190 Q230 220 210 230 L195 235 Q175 240 175 230 L175 190 Q175 170 160 150 L140 90 Q125 70 125 40 Z" stroke="#1e40af" strokeWidth="1" />
+              <line x1="135" y1="60" x2="155" y2="60" stroke="#1e40af" strokeWidth="0.5" opacity="0.3" />
+              <line x1="132" y1="75" x2="158" y2="75" stroke="#1e40af" strokeWidth="0.5" opacity="0.3" />
+              <line x1="175" y1="55" x2="195" y2="55" stroke="#1e40af" strokeWidth="0.5" opacity="0.3" />
+              <line x1="178" y1="70" x2="192" y2="70" stroke="#1e40af" strokeWidth="0.5" opacity="0.3" />
+            </svg>
           </div>
-
-          <div className="p-5 space-y-3">
-            <h3 className="text-lg font-bold text-white leading-snug line-clamp-2 group-hover:text-cyan-300 transition-colors">
-              {course.titleAr}
-            </h3>
-
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+          <div className="absolute top-3 right-3 flex gap-2">
+            <Badge variant="blue">{course.categoryAr}</Badge>
+            <Badge variant={level.badge}>{level.text}</Badge>
+          </div>
+          {isEnrolled && progress !== undefined && (
+            <div className="absolute top-3 left-3">
+              <Badge variant="green">{Math.round(progress)}% مكتمل</Badge>
+            </div>
+          )}
+          <div className="absolute bottom-3 right-3">
+            <div className="flex -space-x-1.5 rtl:space-x-reverse">
+              <div className="w-8 h-8 rounded-full bg-[#1e40af] flex items-center justify-center text-white text-xs font-bold border-2 border-white">
                 {course.teacher.nameAr.charAt(0)}
               </div>
-              <span className="text-sm text-gray-400 truncate">{course.teacher.nameAr}</span>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs text-gray-400">
-              <div className="flex items-center gap-1">
-                <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
-                <span>{course.rating.toFixed(1)}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Users className="w-3.5 h-3.5" />
-                <span>{course.studentsCount.toLocaleString('ar-SA')}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                <span>{course.duration}</span>
-              </div>
-            </div>
-
-            {isEnrolled && progress !== undefined && (
-              <Progress value={progress} className="h-1.5" />
-            )}
-
-            <div className="flex items-center justify-between pt-2">
-              {isEnrolled ? (
-                <Button variant="primary" size="sm" className="group/btn">
-                  متابعة
-                  <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
-                </Button>
-              ) : (
-                <>
-                  <span className="text-lg font-bold text-cyan-400">
-                    {course.price === 0 ? 'مجاناً' : formatPrice(course.price)}
-                  </span>
-                  <Button variant="outline" size="sm">
-                    اشتراك
-                  </Button>
-                </>
-              )}
             </div>
           </div>
         </div>
-      </Link>
-    </motion.div>
+
+        <div className="p-4 space-y-3">
+          <h3 className="text-base font-bold text-[#1e293b] leading-snug line-clamp-2 group-hover:text-[#1e40af] transition-colors">
+            {course.titleAr}
+          </h3>
+
+          <div className="flex items-center gap-2 text-sm text-[#475569]">
+            <span>{course.teacher.nameAr}</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-xs text-[#94a3b8]">
+            <div className="flex items-center gap-1">
+              <Star className="w-3.5 h-3.5 text-[#d97706] fill-[#d97706]" />
+              <span className="text-[#475569]">{course.rating.toFixed(1)}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Users className="w-3.5 h-3.5" />
+              <span>{course.studentsCount.toLocaleString('ar-SA')}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5" />
+              <span>{course.duration}</span>
+            </div>
+          </div>
+
+          {isEnrolled && progress !== undefined && (
+            <Progress value={progress} className="h-1.5" />
+          )}
+
+          <div className="flex items-center justify-between pt-1">
+            {isEnrolled ? (
+              <Button variant="default" size="sm">
+                متابعة
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+            ) : (
+              <>
+                <span className="text-base font-bold text-[#1e40af]">
+                  {course.price === 0 ? 'مجاناً' : formatPrice(course.price)}
+                </span>
+                <Button variant="secondary" size="sm">
+                  اشتراك
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }

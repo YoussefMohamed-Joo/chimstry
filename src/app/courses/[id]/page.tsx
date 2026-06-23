@@ -135,13 +135,13 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="cyan">{course.categoryAr}</Badge>
+              <Badge variant="blue">{course.categoryAr}</Badge>
               <Badge variant={
                 course.level === 'beginner' ? 'green' : course.level === 'intermediate' ? 'yellow' : 'red'
               }>
                 {course.levelAr}
               </Badge>
-              {course.rating >= 4.8 && <Badge variant="purple">الأفضل</Badge>}
+              {course.rating >= 4.8 && <Badge variant="blue">الأفضل</Badge>}
             </div>
             <h1 className="text-2xl md:text-4xl font-bold text-white">{course.titleAr}</h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">

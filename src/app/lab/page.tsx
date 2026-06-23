@@ -98,7 +98,7 @@ export default function LabPage() {
               </h1>
             </div>
           </div>
-          <Badge variant={labState === 'idle' ? 'cyan' : labState === 'underwater' ? 'green' : 'yellow'}>
+          <Badge variant={labState === 'idle' ? 'blue' : labState === 'underwater' ? 'green' : 'yellow'}>
             {stateLabels[labState]}
           </Badge>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, type Easing } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Star, Users, BookOpen, GraduationCap, Atom, FlaskRound as Flask, Microscope, Zap, Dna } from 'lucide-react';
 import HeroSection from '@/components/features/HeroSection';
 import CourseCard from '@/components/features/CourseCard';
@@ -16,20 +16,11 @@ const testimonials = testimonialsData as unknown as Testimonial[];
 
 const categories = categoriesData as unknown as Category[];
 
-const ease: Easing = [0.25, 0.1, 0.25, 1];
-
 const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.6, ease },
-};
-
-const stagger = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { staggerChildren: 0.1, duration: 0.5 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
 };
 
 const categoryIcons: Record<string, React.ElementType> = {
@@ -58,178 +49,193 @@ export default function HomePage() {
     <div>
       <HeroSection />
 
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <Badge variant="cyan" className="mb-4">دورات مميزة</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            أشهر <span className="gradient-text">الدورات التعليمية</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            اختر من بين مجموعتنا المختارة من أفضل دورات الكيمياء
-          </p>
-        </motion.div>
-
-        {featuredLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => <CourseCardSkeleton key={i} />)}
-          </div>
-        ) : (
-          <motion.div {...stagger} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featured?.map((course, i) => (
-              <motion.div key={course.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <CourseCard course={course} index={i} />
-              </motion.div>
-            ))}
+      {/* Featured Courses */}
+      <section className="bg-white border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge variant="blue" className="mb-4">دورات مميزة</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+              أشهر الدورات التعليمية
+            </h2>
+            <p className="text-[#475569] max-w-2xl mx-auto">
+              اختر من بين مجموعتنا المختارة من أفضل دورات الكيمياء
+            </p>
           </motion.div>
-        )}
 
-        <motion.div {...fadeInUp} className="text-center mt-10">
-          <Link href="/courses">
-            <Button variant="primary" size="lg" className="group">
-              تصفح جميع الدورات
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-        </motion.div>
+          {featuredLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map((i) => <CourseCardSkeleton key={i} />)}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featured?.map((course, i) => (
+                <motion.div key={course.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+                  <CourseCard course={course} index={i} />
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          <motion.div {...fadeInUp} className="text-center mt-10">
+            <Link href="/courses">
+              <Button variant="default" size="lg">
+                تصفح جميع الدورات
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <Badge variant="cyan" className="mb-4">التصنيفات</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            تصفح حسب <span className="gradient-text">التخصص</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            اختر التخصص الذي يناسب اهتماماتك
-          </p>
-        </motion.div>
+      {/* Categories */}
+      <section className="bg-[#f8fafc] border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge variant="blue" className="mb-4">التصنيفات</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+              تصفح حسب التخصص
+            </h2>
+            <p className="text-[#475569] max-w-2xl mx-auto">
+              اختر التخصص الذي يناسب اهتماماتك
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {categories.map((cat, i) => {
-            const Icon = categoryIcons[cat.icon] || Flask;
-            return (
-              <motion.div
-                key={cat.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <Link
-                  href={`/courses?category=${cat.id}`}
-                  className="group block p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-cyan-500/30 hover:bg-white/[0.06] transition-all duration-300 text-center"
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {categories.map((cat, i) => {
+              const Icon = categoryIcons[cat.icon] || Flask;
+              return (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
                 >
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-300">
-                    <Icon className="w-7 h-7 text-cyan-400" />
-                  </div>
-                  <h3 className="text-white font-bold mb-1">{cat.nameAr}</h3>
-                  <p className="text-sm text-gray-500">{cat.count} دورات</p>
-                </Link>
-              </motion.div>
-            );
-          })}
+                  <Link
+                    href={`/courses?category=${cat.id}`}
+                    className="block p-6 rounded-lg bg-white border border-[#e5e7eb] text-center hover:border-[#cbd5e1] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-200"
+                  >
+                    <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-[#eef2ff] flex items-center justify-center">
+                      <Icon className="w-6 h-6 text-[#1e40af]" />
+                    </div>
+                    <h3 className="text-[#1e293b] font-bold text-sm mb-0.5">{cat.nameAr}</h3>
+                    <p className="text-xs text-[#94a3b8]">{cat.count} دورات</p>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <Badge variant="cyan" className="mb-4">المعلمون</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            تعلم مع <span className="gradient-text">أفضل المعلمين</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            نخبة من أساتذة الكيمياء من أفضل الجامعات
-          </p>
-        </motion.div>
+      {/* Teachers */}
+      <section className="bg-white border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge variant="blue" className="mb-4">المعلمون</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+              تعلم مع أفضل المعلمين
+            </h2>
+            <p className="text-[#475569] max-w-2xl mx-auto">
+              نخبة من أساتذة الكيمياء من أفضل الجامعات
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-          {teachers.map((teacher, i) => (
-            <motion.div
-              key={teacher.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 text-center group hover:border-cyan-500/20 transition-all duration-300"
-            >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white text-xl font-bold group-hover:scale-110 transition-transform duration-300">
-                {teacher.avatar}
-              </div>
-              <h3 className="text-white font-bold mb-1">{teacher.nameAr}</h3>
-              <p className="text-sm text-cyan-400">{teacher.specialty}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <Badge variant="cyan" className="mb-4">إحصائيات</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            كيمستري في <span className="gradient-text">أرقام</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, i) => {
-            const Icon = stat.icon;
-            return (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {teachers.map((teacher, i) => (
               <motion.div
-                key={i}
+                key={teacher.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 text-center group hover:border-cyan-500/20 transition-all"
+                transition={{ delay: i * 0.06 }}
+                className="p-5 rounded-lg bg-[#f8fafc] border border-[#e5e7eb] text-center hover:border-[#cbd5e1] transition-all duration-200"
               >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
-                  <Icon className="w-7 h-7 text-cyan-400" />
+                <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-[#1e40af] flex items-center justify-center text-white text-lg font-bold">
+                  {teacher.avatar}
                 </div>
-                <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
-                <p className="text-sm text-gray-400">{stat.label}</p>
+                <h3 className="text-[#1e293b] font-bold text-sm mb-0.5">{teacher.nameAr}</h3>
+                <p className="text-xs text-[#475569]">{teacher.specialty}</p>
               </motion.div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <Badge variant="cyan" className="mb-4">تجارب الطلاب</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            ماذا يقول <span className="gradient-text">طلابنا</span>
-          </h2>
-        </motion.div>
+      {/* Stats */}
+      <section className="bg-[#f8fafc] border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge variant="blue" className="mb-4">إحصائيات</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+              كيمستري في أرقام
+            </h2>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-cyan-500/20 transition-all"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold shrink-0">
-                  {t.nameAr.charAt(0)}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="font-bold text-white">{t.nameAr}</p>
-                    <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className={`w-3.5 h-3.5 ${s <= t.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
-                      ))}
-                    </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((stat, i) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="p-6 rounded-lg bg-white border border-[#e5e7eb] text-center hover:border-[#cbd5e1] transition-all"
+                >
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-[#eef2ff] flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-[#1e40af]" />
                   </div>
-                  <p className="text-sm text-gray-400 leading-relaxed">{t.textAr}</p>
-                  <p className="text-xs text-cyan-400/60 mt-2">{t.course}</p>
+                  <p className="text-2xl font-bold text-[#1e293b] mb-0.5">{stat.value}</p>
+                  <p className="text-sm text-[#475569]">{stat.label}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-white">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge variant="blue" className="mb-4">تجارب الطلاب</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+              ماذا يقول طلابنا
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="p-5 rounded-lg bg-[#f8fafc] border border-[#e5e7eb] hover:border-[#cbd5e1] transition-all"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#1e40af] flex items-center justify-center text-white font-bold text-sm shrink-0">
+                    {t.nameAr.charAt(0)}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="font-bold text-[#1e293b] text-sm">{t.nameAr}</p>
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star key={s} className={`w-3 h-3 ${s <= t.rating ? 'text-[#d97706] fill-[#d97706]' : 'text-[#e5e7eb]'}`} />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-sm text-[#475569] leading-relaxed">{t.textAr}</p>
+                    <p className="text-xs text-[#94a3b8] mt-1.5">{t.course}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

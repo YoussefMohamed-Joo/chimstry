@@ -78,7 +78,7 @@ export default function LessonPlayer({ lesson, courseId, userId, isEnrolled }: L
               </div>
             </div>
             <div className="absolute bottom-4 right-4">
-              <Badge variant="cyan" className="gap-1.5">
+              <Badge variant="blue" className="gap-1.5">
                 <Monitor className="w-3.5 h-3.5" />
                 {lesson.duration}
               </Badge>

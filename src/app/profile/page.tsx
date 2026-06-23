@@ -64,7 +64,7 @@ export default function ProfilePage() {
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white">{user.name}</h1>
             <p className="text-gray-400">{user.email}</p>
-            <Badge variant="cyan" className="mt-2">
+            <Badge variant="blue" className="mt-2">
               {user.role === 'student' ? 'طالب' : user.role === 'teacher' ? 'معلم' : 'مشرف'}
             </Badge>
           </div>

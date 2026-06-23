@@ -120,7 +120,7 @@ export default function AdminPaymentsPage() {
                   <div className="flex-1 min-w-0 space-y-3">
                     <div className="flex flex-wrap items-center gap-2">
                       {statusBadge(request.status)}
-                      <Badge variant="cyan">{request.courseTitle}</Badge>
+                      <Badge variant="blue">{request.courseTitle}</Badge>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
                       <div className="flex items-center gap-2 text-gray-300">

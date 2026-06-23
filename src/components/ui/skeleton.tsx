@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@/lib/cn';
 
 interface SkeletonProps {
@@ -10,7 +8,7 @@ export function Skeleton({ className }: SkeletonProps) {
   return (
     <div
       className={cn(
-        'animate-pulse rounded-xl bg-white/5',
+        'animate-pulse rounded-md bg-[#e5e7eb]',
         className
       )}
     />
@@ -19,9 +17,9 @@ export function Skeleton({ className }: SkeletonProps) {
 
 export function CourseCardSkeleton() {
   return (
-    <div className="rounded-xl border border-white/5 bg-white/[0.02] overflow-hidden">
-      <Skeleton className="h-48 w-full rounded-none" />
-      <div className="p-5 space-y-3">
+    <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
+      <Skeleton className="h-56 w-full rounded-none" />
+      <div className="p-4 space-y-3">
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-5 w-full" />
         <Skeleton className="h-5 w-3/4" />
@@ -29,9 +27,9 @@ export function CourseCardSkeleton() {
           <Skeleton className="h-6 w-16 rounded-full" />
           <Skeleton className="h-6 w-20 rounded-full" />
         </div>
-        <div className="flex justify-between items-center pt-2">
+        <div className="flex justify-between items-center pt-1">
           <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-9 w-28 rounded-xl" />
+          <Skeleton className="h-9 w-24 rounded-lg" />
         </div>
       </div>
     </div>

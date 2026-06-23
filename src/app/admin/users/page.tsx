@@ -23,9 +23,9 @@ export default function AdminUsersPage() {
   );
 
   const getRoleBadge = (role: string) => {
-    const map: Record<string, { label: string; variant: 'cyan' | 'purple' | 'green' }> = {
-      admin: { label: 'مدير', variant: 'purple' },
-      teacher: { label: 'معلم', variant: 'cyan' },
+    const map: Record<string, { label: string; variant: 'blue' | 'green' }> = {
+      admin: { label: 'مدير', variant: 'blue' },
+      teacher: { label: 'معلم', variant: 'blue' },
       student: { label: 'طالب', variant: 'green' },
     };
     return map[role] || { label: role, variant: 'default' as const };

@@ -119,7 +119,7 @@ export default function AdminCoursesPage() {
                   <Badge variant={levelVariant(course.level)}>
                     {course.levelAr}
                   </Badge>
-                  <Badge variant="cyan">{course.duration}</Badge>
+                  <Badge variant="blue">{course.duration}</Badge>
                 </div>
 
                 <div className="flex items-center gap-4 text-gray-400 text-xs mb-4">
