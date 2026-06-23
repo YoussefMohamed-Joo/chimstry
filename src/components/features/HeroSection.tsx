@@ -56,8 +56,18 @@ export default function HeroSection() {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Left side: chemical reaction simulation */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+            className="flex items-center justify-center"
+          >
+            <ChemicalReaction />
+          </motion.div>
+
           {/* Right side: text */}
-          <div className="text-center lg:text-right order-2 lg:order-1">
+          <div className="text-center lg:text-right">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -151,16 +161,6 @@ export default function HeroSection() {
               ))}
             </motion.div>
           </div>
-
-          {/* Left side: chemical reaction simulation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className="order-1 lg:order-2 flex items-center justify-center"
-          >
-            <ChemicalReaction />
-          </motion.div>
         </div>
       </div>
     </section>
