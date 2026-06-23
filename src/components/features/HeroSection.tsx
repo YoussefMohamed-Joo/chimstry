@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Search, ArrowLeft, BookOpen, Users, Beaker, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ParticlesBackground from '@/components/shared/Particles';
-import ChemicalReaction from '@/components/features/ChemicalReaction';
+
+const LabScene = dynamic(() => import('@/components/features/LabScene'), { ssr: false });
 
 const floatingAtoms = [
   { icon: Beaker, size: 24, x: '10%', y: '20%', delay: 0, duration: 6 },
@@ -25,7 +27,19 @@ const stats = [
   { icon: GraduationCap, value: '٣٥+', label: 'معلم خبير' },
 ];
 
+const stateLabels: Record<string, string> = {
+  idle: 'التجربة جاهزة',
+  dripping: 'إضافة السائل...',
+  reacting: 'بدء التفاعل...',
+  intense: 'تفاعل قوي!',
+  peak: 'ذروة التفاعل!',
+  chaos: 'انفجار!',
+  flood: 'فيضان!',
+  underwater: 'تحت الماء...',
+};
+
 export default function HeroSection() {
+  const [labState, setLabState] = useState('idle');
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-[#0B1E3D] via-[#0a1628] to-[#0B1E3D]">
       <ParticlesBackground />
@@ -56,14 +70,26 @@ export default function HeroSection() {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Left side: chemical reaction simulation */}
+          {/* Left side: 3D Lab Scene */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className="flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
-            <ChemicalReaction />
+            <div className="w-full max-w-[500px] aspect-[4/3]">
+              <LabScene onStateChange={setLabState} />
+            </div>
+            <motion.div
+              key={labState}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/5"
+            >
+              <span className="text-xs text-cyan-400/80 font-medium">
+                {stateLabels[labState] || ''}
+              </span>
+            </motion.div>
           </motion.div>
 
           {/* Right side: text */}

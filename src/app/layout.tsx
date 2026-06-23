@@ -6,7 +6,6 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ParticlesBackground from '@/components/shared/Particles';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
-import FloodOverlay from '@/components/shared/FloodOverlay';
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main className="flex-1 relative z-10 pt-16">{children}</main>
           <WhatsAppButton />
           <Footer />
-          <FloodOverlay />
         </AppProvider>
       </body>
     </html>
