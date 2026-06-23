@@ -2,10 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   BookOpen, Star, Users, Clock, ChevronLeft, Play, Award, Shield,
-  User, GraduationCap, FileText, Loader2, AlertCircle,
+  User, GraduationCap, FileText, Loader2, AlertCircle, CheckCircle2, X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +20,7 @@ import { useCourse } from '@/hooks/useCourses';
 import { useLessons, useLessonProgress } from '@/hooks/useLessons';
 import { useAuthStore } from '@/store/authStore';
 import { useEnrollCourse } from '@/hooks/useUser';
+import { useSubmitPayment } from '@/hooks/usePayments';
 
 export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState<string | null>(null);
@@ -31,10 +32,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
   const { data: lessons, isLoading: lessonsLoading } = useLessons(id ?? '');
   const { user, isAuthenticated } = useAuthStore();
   const enroll = useEnrollCourse();
+  const submitPayment = useSubmitPayment();
   const { data: progressData } = useLessonProgress(user?.id ?? '', id ?? '');
 
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
   const [showPayment, setShowPayment] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const completedLessons = useMemo(() => {
     if (!progressData) return [];
@@ -91,11 +94,26 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
     }
   };
 
-  const handlePaymentSubmit = (receiptData: { imageBase64: string; imageName: string }) => {
-    if (!id || !course) return;
-    enroll.mutate(
-      { courseId: id, paymentData: { ...receiptData, amount: course.price, phoneNumber: '01033558125' } },
-      { onSuccess: () => setShowPayment(false) }
+  const handlePaymentSubmit = (data: { userPhone: string; imageBase64: string; imageName: string }) => {
+    if (!id || !course || !user) return;
+    submitPayment.mutate(
+      {
+        userId: user.id,
+        userName: user.name,
+        userEmail: user.email,
+        userPhone: data.userPhone,
+        courseId: id,
+        courseTitle: course.titleAr,
+        amount: course.price,
+        imageBase64: data.imageBase64,
+        imageName: data.imageName,
+      },
+      {
+        onSuccess: () => {
+          setShowPayment(false);
+          setPaymentSuccess(true);
+        },
+      }
     );
   };
 
@@ -296,13 +314,39 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           </motion.div>
         </div>
       </div>
+      <AnimatePresence>
+        {paymentSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 backdrop-blur-xl bg-green-500/10 border border-green-500/20 rounded-2xl px-6 py-4 shadow-2xl max-w-md w-[calc(100%-2rem)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+              </div>
+              <div>
+                <p className="text-white font-bold">تم إرسال طلب الاشتراك بنجاح</p>
+                <p className="text-green-400 text-sm">بانتظار موافقة الإدارة</p>
+              </div>
+              <button
+                onClick={() => setPaymentSuccess(false)}
+                className="mr-auto text-gray-400 hover:text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <PaymentModal
         isOpen={showPayment}
         onClose={() => setShowPayment(false)}
         courseTitle={course?.titleAr || ''}
         coursePrice={course?.price || 0}
         onSubmit={handlePaymentSubmit}
-        isSubmitting={enroll.isPending}
+        isSubmitting={submitPayment.isPending}
       />
     </div>
   );

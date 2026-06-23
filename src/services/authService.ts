@@ -59,7 +59,21 @@ export const authService = {
       return stored ? { user: JSON.parse(stored), role: 'admin' } : null;
     }
     const stored = localStorage.getItem('user');
-    return stored ? { user: JSON.parse(stored), role: 'user' } : null;
+    if (!stored) return null;
+    const user: User = JSON.parse(stored);
+    const enrollKey = `enrollments_${user.id}`;
+    const enrollmentsRaw = localStorage.getItem(enrollKey);
+    if (enrollmentsRaw) {
+      const extraEnrollments: string[] = JSON.parse(enrollmentsRaw);
+      for (const cId of extraEnrollments) {
+        if (!user.enrolledCourses.includes(cId)) {
+          user.enrolledCourses.push(cId);
+          user.progress[cId] = 0;
+        }
+      }
+    }
+    localStorage.setItem('user', JSON.stringify(user));
+    return { user, role: 'user' };
   },
 
   async enrollCourse(

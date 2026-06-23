@@ -8,6 +8,7 @@ import {
   Activity,
   GraduationCap,
   Plus,
+  Smartphone,
 } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useAllUsers } from '@/hooks/useUser';
@@ -164,6 +165,14 @@ export default function AdminDashboardPage() {
                 >
                   <Plus className="w-4 h-4" />
                   إضافة دورة جديدة
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="w-full justify-start"
+                  onClick={() => (window.location.href = '/admin/payments')}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  طلبات الدفع
                 </Button>
               </div>
             </div>

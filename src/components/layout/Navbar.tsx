@@ -18,8 +18,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'الرئيسية' },
     { href: '/courses', label: 'الدورات' },
-    { href: '/dashboard', label: 'لوحة التحكم' },
-    ...(isAdmin ? [{ href: '/admin/dashboard', label: 'الإدارة' }] : []),
+    { href: isAdmin ? '/admin/dashboard' : '/dashboard', label: 'لوحة التحكم' },
     { href: '/profile', label: 'الملف الشخصي' },
   ];
   const menuRef = useRef<HTMLDivElement>(null);

@@ -1,11 +1,16 @@
-export interface PaymentReceipt {
+export interface PaymentRequest {
+  id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  userPhone: string;
   courseId: string;
+  courseTitle: string;
   amount: number;
-  phoneNumber: string;
   imageBase64: string;
   imageName: string;
   submittedAt: string;
-  status: 'pending' | 'verified' | 'rejected';
+  status: 'pending' | 'approved' | 'rejected';
 }
 
 export interface User {

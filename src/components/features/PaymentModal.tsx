@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Upload, CheckCircle, AlertCircle, ImageIcon, Smartphone } from 'lucide-react';
+import { X, Upload, CheckCircle, AlertCircle, ImageIcon, Smartphone, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { formatPrice } from '@/lib/utils';
 
 const PHONE_NUMBER = '01033558125';
@@ -13,7 +14,11 @@ interface PaymentModalProps {
   onClose: () => void;
   courseTitle: string;
   coursePrice: number;
-  onSubmit: (receiptData: { imageBase64: string; imageName: string }) => void;
+  onSubmit: (data: {
+    userPhone: string;
+    imageBase64: string;
+    imageName: string;
+  }) => void;
   isSubmitting?: boolean;
 }
 
@@ -25,6 +30,7 @@ export default function PaymentModal({
   onSubmit,
   isSubmitting,
 }: PaymentModalProps) {
+  const [phone, setPhone] = useState('');
   const [file, setFile] = useState<{ base64: string; name: string } | null>(null);
   const [error, setError] = useState('');
   const [dragOver, setDragOver] = useState(false);
@@ -55,11 +61,17 @@ export default function PaymentModal({
   };
 
   const handleSubmit = () => {
+    setError('');
+    const cleaned = phone.replace(/\s+/g, '');
+    if (cleaned.length < 10) {
+      setError('يرجى إدخال رقم الهاتف بشكل صحيح');
+      return;
+    }
     if (!file) {
       setError('يرجى رفع صورة التحويل');
       return;
     }
-    onSubmit({ imageBase64: file.base64, imageName: file.name });
+    onSubmit({ userPhone: cleaned, imageBase64: file.base64, imageName: file.name });
   };
 
   return (
@@ -111,9 +123,22 @@ export default function PaymentModal({
                     <span className="text-lg ltr" dir="ltr">{PHONE_NUMBER}</span>
                   </li>
                   <li>خذ صورة (سكرين شوت) لإيصال التحويل</li>
-                  <li>ارفع الصورة أدناه لإتمام التسجيل</li>
+                  <li>أدخل رقم هاتفك الذي حولت منه</li>
+                  <li>ارفع الصورة لإتمام الطلب</li>
                 </ol>
               </div>
+
+              <Input
+                label="رقم هاتفك (الذي حولت منه)"
+                type="tel"
+                dir="ltr"
+                className="text-left"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="010XXXXXXXX"
+                icon={<Phone className="w-4 h-4" />}
+                required
+              />
 
               <div>
                 <p className="text-sm text-gray-400 mb-2">صورة التحويل *</p>
@@ -185,10 +210,14 @@ export default function PaymentModal({
                 className="w-full"
                 onClick={handleSubmit}
                 isLoading={isSubmitting}
-                disabled={!file}
+                disabled={!file || !phone}
               >
-                {file ? 'تأكيد الاشتراك' : 'يرجى رفع صورة التحويل'}
+                إرسال طلب الاشتراك
               </Button>
+
+              <p className="text-xs text-gray-500 text-center">
+                سيتم مراجعة طلبك من قبل الإدارة والرد عليك في أقرب وقت
+              </p>
             </div>
           </motion.div>
         </motion.div>
