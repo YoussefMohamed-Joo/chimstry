@@ -52,9 +52,12 @@ export function useEnrollCourse() {
   const user = useAuthStore((s) => s.user);
 
   return useMutation({
-    mutationFn: (courseId: string) => {
+    mutationFn: (input: string | { courseId: string; paymentData?: { imageBase64: string; imageName: string; amount: number; phoneNumber: string } }) => {
       if (!user) throw new Error('غير مسجل دخول');
-      return authService.enrollCourse(user.id, courseId);
+      if (typeof input === 'string') {
+        return authService.enrollCourse(user.id, input);
+      }
+      return authService.enrollCourse(user.id, input.courseId, input.paymentData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });

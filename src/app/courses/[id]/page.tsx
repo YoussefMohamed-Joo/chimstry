@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import LessonPlayer from '@/components/features/LessonPlayer';
 import CourseTabs from '@/components/features/CourseTabs';
+import PaymentModal from '@/components/features/PaymentModal';
 import ErrorState from '@/components/shared/ErrorState';
 import { Skeleton, LessonSkeleton } from '@/components/ui/skeleton';
 import { cn, formatPrice } from '@/lib/utils';
@@ -33,6 +34,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
   const { data: progressData } = useLessonProgress(user?.id ?? '', id ?? '');
 
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
+  const [showPayment, setShowPayment] = useState(false);
 
   const completedLessons = useMemo(() => {
     if (!progressData) return [];
@@ -82,7 +84,19 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
   const handleEnroll = () => {
     if (!isAuthenticated || !id) return;
-    enroll.mutate(id);
+    if (course?.price === 0) {
+      enroll.mutate(id);
+    } else {
+      setShowPayment(true);
+    }
+  };
+
+  const handlePaymentSubmit = (receiptData: { imageBase64: string; imageName: string }) => {
+    if (!id || !course) return;
+    enroll.mutate(
+      { courseId: id, paymentData: { ...receiptData, amount: course.price, phoneNumber: '01033558125' } },
+      { onSuccess: () => setShowPayment(false) }
+    );
   };
 
   return (
@@ -282,6 +296,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           </motion.div>
         </div>
       </div>
+      <PaymentModal
+        isOpen={showPayment}
+        onClose={() => setShowPayment(false)}
+        courseTitle={course?.titleAr || ''}
+        coursePrice={course?.price || 0}
+        onSubmit={handlePaymentSubmit}
+        isSubmitting={enroll.isPending}
+      />
     </div>
   );
 }

@@ -62,7 +62,11 @@ export const authService = {
     return stored ? { user: JSON.parse(stored), role: 'user' } : null;
   },
 
-  async enrollCourse(userId: string, courseId: string): Promise<User> {
+  async enrollCourse(
+    userId: string,
+    courseId: string,
+    paymentData?: { imageBase64: string; imageName: string; amount: number; phoneNumber: string }
+  ): Promise<User> {
     await delay(300);
     const stored = localStorage.getItem('user');
     if (!stored) throw new Error('غير مسجل دخول');
@@ -71,6 +75,21 @@ export const authService = {
       user.enrolledCourses.push(courseId);
       user.progress[courseId] = 0;
       localStorage.setItem('user', JSON.stringify(user));
+    }
+    if (paymentData) {
+      const paymentsKey = `payments_${userId}`;
+      const existing = localStorage.getItem(paymentsKey);
+      const payments = existing ? JSON.parse(existing) : [];
+      payments.push({
+        courseId,
+        amount: paymentData.amount,
+        phoneNumber: paymentData.phoneNumber,
+        imageBase64: paymentData.imageBase64,
+        imageName: paymentData.imageName,
+        submittedAt: new Date().toISOString(),
+        status: 'pending',
+      });
+      localStorage.setItem(paymentsKey, JSON.stringify(payments));
     }
     return user;
   },
