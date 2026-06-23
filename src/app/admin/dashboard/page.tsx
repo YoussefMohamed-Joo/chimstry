@@ -35,6 +35,7 @@ const item = {
 export default function AdminDashboardPage() {
   const user = useAuthStore((s) => s.user);
   const isAdmin = useAuthStore((s) => s.isAdmin);
+  const isLoading = useAuthStore((s) => s.isLoading);
   const { data: allUsers, isLoading: usersLoading } = useAllUsers();
   const [courses, setCourses] = useState<Course[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(true);
@@ -45,6 +46,16 @@ export default function AdminDashboardPage() {
       setCoursesLoading(false);
     });
   }, []);
+
+  if (isLoading) {
+    return (
+      <div dir="rtl" className="font-cairo min-h-screen flex items-center justify-center bg-[#0B1E3D]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto" />
+        </div>
+      </div>
+    );
+  }
 
   if (!isAdmin) {
     return (
