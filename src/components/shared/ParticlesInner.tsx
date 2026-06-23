@@ -14,7 +14,7 @@ export default function ParticlesInner() {
     <Particles
       id="tsparticles"
       options={{
-        fullScreen: { enable: true, zIndex: 0 },
+        fullScreen: { enable: true, zIndex: 20 },
         fpsLimit: 60,
         particles: {
           number: { value: 80, density: { enable: true } },

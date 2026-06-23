@@ -58,8 +58,6 @@ export default function LabScene({ onStateChange, reaction, trigger }: LabSceneP
     if (!container) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x060e1a);
-    scene.fog = new THREE.Fog(0x060e1a, 8, 20);
 
     const cam = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 30);
     cam.position.set(4, 2.5, 6);
@@ -100,8 +98,9 @@ export default function LabScene({ onStateChange, reaction, trigger }: LabSceneP
     bgGrad.addColorStop(0.6, '#0a0f1e'); bgGrad.addColorStop(1, '#050810');
     bgCtx.fillStyle = bgGrad; bgCtx.fillRect(0, 0, 256, 256);
     const bgTex = new THREE.CanvasTexture(bgCanvas);
-    const bgMesh = new THREE.Mesh(new THREE.SphereGeometry(18, 32, 32), new THREE.MeshBasicMaterial({ map: bgTex, side: THREE.BackSide }));
+    const bgMesh = new THREE.Mesh(new THREE.SphereGeometry(18, 32, 32), new THREE.MeshBasicMaterial({ map: bgTex, side: THREE.BackSide, transparent: true, opacity: 0.3 }));
     scene.add(bgMesh);
+    bgMesh.visible = false;
 
     // Floor
     const floor = new THREE.Mesh(
