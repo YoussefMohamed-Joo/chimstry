@@ -7,7 +7,7 @@ import { Search, ArrowLeft, BookOpen, Users, Beaker, GraduationCap } from 'lucid
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ParticlesBackground from '@/components/shared/Particles';
-import FlaskAnimation from '@/components/features/FlaskAnimation';
+import ChemicalReaction from '@/components/features/ChemicalReaction';
 
 const floatingAtoms = [
   { icon: Beaker, size: 24, x: '10%', y: '20%', delay: 0, duration: 6 },
@@ -152,14 +152,14 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Left side: flask animation */}
+          {/* Left side: chemical reaction simulation */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
             className="order-1 lg:order-2 flex items-center justify-center"
           >
-            <FlaskAnimation />
+            <ChemicalReaction />
           </motion.div>
         </div>
       </div>
