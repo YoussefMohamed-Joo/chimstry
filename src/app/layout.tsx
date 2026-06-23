@@ -4,8 +4,8 @@ import './globals.css';
 import AppProvider from '@/providers/AppProvider';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import ParticlesBackground from '@/components/shared/Particles';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
+import ChemistryBackground from '@/components/shared/ChemistryBackground';
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ar" dir="rtl" className="h-full">
       <body suppressHydrationWarning className={`${cairo.variable} min-h-full flex flex-col font-cairo antialiased`}>
         <AppProvider>
-          <ParticlesBackground />
+          <ChemistryBackground />
           <Navbar />
           <main className="flex-1 relative z-10 pt-16">{children}</main>
           <WhatsAppButton />

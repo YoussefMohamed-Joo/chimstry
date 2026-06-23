@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { Search, ArrowLeft, BookOpen, Users, Beaker, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import ParticlesBackground from '@/components/shared/Particles';
 
 const LabScene = dynamic(() => import('@/components/features/LabScene'), { ssr: false });
 
@@ -42,8 +41,6 @@ export default function HeroSection() {
   const [labState, setLabState] = useState('idle');
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-[#0B1E3D] via-[#0a1628] to-[#0B1E3D]">
-      <ParticlesBackground />
-
       {floatingAtoms.map((atom, i) => (
         <motion.div
           key={i}
